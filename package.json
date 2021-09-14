@@ -1,0 +1,18 @@
+{
+  "name": "twitchbot",
+  "version": "0.0.1",
+  "description": "a simple twitch bot to try out the twitch ways",
+  "main": "files",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "asumji",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "node-fetch": "^3.0.0",
+    "querystring": "^0.2.1",
+    "tmi.js": "^1.8.5"
+  }
+}
