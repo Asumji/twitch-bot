@@ -6,16 +6,15 @@ var economy = false
 const client = new tmi.Client({
 	options: { debug: true },
 	identity: {
-		username: 'swelp1',
-		password: 'oauth:n5h74y02q2hwp0u2tm59pi59h5eey2'
+		username: 'name',
+		password: 'password'
 	},
-	channels: [ 'CasualObserverrr', 'asumji' ]
+	channels: []
 });
 
 client.connect();
 
 client.on('message', (channel, user, message, self) => {
-	const prefix = "!"
 	const ecPrefix = "?"
 
 	if (!points[user.username + " " + channel]) {
@@ -31,10 +30,6 @@ client.on('message', (channel, user, message, self) => {
 	if(self) return;
 	const args = message.split(' ');
 	const command = args.shift().toLowerCase();
-
-	if (command == prefix + "[;au" || command == prefix + "join" || command == prefix + "vip" || command == prefix + "roblox" || command == prefix + "profile") {
-		client.say(channel, `!play`)
-	}
 	
 	if (command == ecPrefix + "toggleeconomy" || command == ecPrefix + "tec") {
 		if (user.username == "asumji") {
@@ -176,5 +171,3 @@ client.on('message', (channel, user, message, self) => {
 
 
 });
-
-//https://id.twitch.tv/oauth2/authorize?client_id=kry2o2nvvp35edb908fz0kr4z2mmy4&redirect_uri=http://localhost&response_type=token&scope=whispers:edit+whispers:read+chat:read+chat:edit
