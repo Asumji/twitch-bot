@@ -111,7 +111,7 @@ client.on('message', (channel, user, message, self) => {
 			async function leaderboardFunc() {
 				await sort()
 				numArray = numArray.join("/")
-				numArray = "/" + numArray
+				numArray = "/" + numArray + "/"
 				for (var i in array) {
 					numArray = numArray.replace("/" + array[i][1] + "/", "/" + array[i][0] + "/")
 				}
