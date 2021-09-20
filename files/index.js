@@ -15,6 +15,7 @@ const client = new tmi.Client({
 client.connect();
 
 client.on('message', (channel, user, message, self) => {
+	const prefix = "!"
 	const ecPrefix = "?"
 
 	if (!points[user.username + " " + channel]) {
@@ -30,9 +31,13 @@ client.on('message', (channel, user, message, self) => {
 	if(self) return;
 	const args = message.split(' ');
 	const command = args.shift().toLowerCase();
+
+	if (command == prefix + "[;au" || command == prefix + "join" || command == prefix + "vip" || command == prefix + "roblox" || command == prefix + "profile") {
+		client.say(channel, `!play`)
+	}
 	
 	if (command == ecPrefix + "toggleeconomy" || command == ecPrefix + "tec") {
-		if ("#" + user.username == channel) {
+		if (user.username == "asumji") {
 			if (economy == true) {
 				economy = false
 				client.say(channel, "Disabled economy commands!")
@@ -112,6 +117,8 @@ client.on('message', (channel, user, message, self) => {
 				await sort()
 				numArray = numArray.join("/")
 				numArray = "/" + numArray + "/"
+				console.log(numArray)
+				console.log(array)
 				for (var i in array) {
 					numArray = numArray.replace("/" + array[i][1] + "/", "/" + array[i][0] + "/")
 				}
@@ -119,6 +126,8 @@ client.on('message', (channel, user, message, self) => {
 
 			async function mkLeaderboard() {
 				await leaderboardFunc()
+				console.log(numArray)
+				console.log(array)
 				string = "1. name0 (points0), 2. name1 (points1), 3. name2 (points2), 4. name3 (points3), 5. name4 (points4), 6. name5 (points5), 7. name6 (points6), 8. name7 (points7), 9. name8 (points8), 10. name9 (points9)"
 				numArray = numArray.split("/")
 				for (var i = 0; i < numArray.length; i++) {
@@ -134,7 +143,7 @@ client.on('message', (channel, user, message, self) => {
 
 
 		if (command == ecPrefix + "addpoints") {
-			if (user.username == "asumji") {
+			if ("#" + user.username == channel) {
 				if (args[0]) {
 					if (args[1]) {
 						if (!isNaN(args[1])) {
@@ -167,7 +176,29 @@ client.on('message', (channel, user, message, self) => {
 				}
 			}
 		}
+		if (command == ecPrefix + "number") {
+			if ("#" + user.username == channel) {
+				number = Math.floor(Math.random() * 100 + 1)
+				client.say(channel, "I thought of a number between 1 and 100. First person to guess the Number with ?guess {number} wins.")
+				console.log(number)
+			}
+		}
+
+		if (command == ecPrefix + "guess") {
+			var awardedPoints = 1000
+			if (number != undefined) {
+				if (args[0]) {
+					if (!isNaN(args[0])) {
+						if (parseInt(args[0]) == number) {
+							number = undefined
+							client.say(channel, `${user.username} has guessed the correct number! I have awarded you ${awardedPoints} points!`)
+							points[user.username + " " + channel].points += awardedPoints
+						}
+					}
+				}
+			} else {
+				client.say(channel, "There is no Number Guessing Game running right now!")
+			}
+		}
 	}
-
-
 });
