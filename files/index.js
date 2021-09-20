@@ -32,7 +32,7 @@ client.on('message', (channel, user, message, self) => {
 	const command = args.shift().toLowerCase();
 	
 	if (command == ecPrefix + "toggleeconomy" || command == ecPrefix + "tec") {
-		if (user.username == "asumji") {
+		if ("#" + user.username == channel) {
 			if (economy == true) {
 				economy = false
 				client.say(channel, "Disabled economy commands!")
